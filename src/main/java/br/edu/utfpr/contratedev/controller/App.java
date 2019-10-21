@@ -14,8 +14,8 @@ public class App extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response
-			.getWriter()
-			.append("Login!");
+		request
+			.getRequestDispatcher("/WEB-INF/view/login.jsp")
+			.forward(request, response);	
 	}
 }
