@@ -5,7 +5,7 @@
 --%>
 
 <%@tag description="Main template" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title"%>
@@ -35,18 +35,11 @@
         </div>
         <div class="col-md-9">
           <ul class="Template__menu__links">
-            <li class="Template__menu__links_link transition">
-              <a href="#" class="transition">Link</a>            
-            </li>
-            <li class="Template__menu__links_link transition">
-              <a href="#" class="transition">Link</a>            
-            </li>
-            <li class="Template__menu__links_link transition">
-              <a href="#" class="transition">Link</a>            
-            </li>
-            <li class="Template__menu__links_link transition">
-              <a href="#" class="transition">Link</a>            
-            </li>
+            <c:if test="${not empty username}">
+              <li class="Template__menu__links_link transition">
+	             <a href="logout" class="transition">Sair</a>            
+	           </li>
+		    </c:if>
           </ul>
         </div>
       </div>
