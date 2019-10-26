@@ -48,10 +48,13 @@ public class LoginController extends HttpServlet {
 			
 			String address = request.getContextPath();
 			if(request.isUserInRole(Constants.ADMIN)) {
+				session.setAttribute("role", "a");
 				address += "/a";
 			} else if(request.isUserInRole(Constants.MANAGER)) {
 				address += "/g";
+				session.setAttribute("role", "g");
 			} else {
+				session.setAttribute("role", "u");
 				address += "/u";
 			}
 			

@@ -7,9 +7,7 @@ public class UserDTO {
 	private String email;
 	private String cellphone;
 	private String password;
-	private String username;
 	private char gender;
-	private boolean isCompany;
 
 	public UserDTO() {
 	}
@@ -21,9 +19,7 @@ public class UserDTO {
 		String email,
 		String cellphone,
 		String password,
-		String username,
-		char gender,
-		boolean isCompany
+		char gender
 	) {
 		super();
 		this.name = name;
@@ -33,8 +29,6 @@ public class UserDTO {
 		this.cellphone = cellphone;
 		this.password = password;
 		this.gender = gender;
-		this.isCompany= isCompany;
-		this.username = username;
 	}
 
 	public String getName() {
@@ -91,21 +85,5 @@ public class UserDTO {
 
 	public void setGender(char gender) {
 		this.gender = gender;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public boolean isCompany() {
-		return isCompany;
-	}
-
-	public void setCompany(boolean isCompany) {
-		this.isCompany = isCompany;
 	}
 }

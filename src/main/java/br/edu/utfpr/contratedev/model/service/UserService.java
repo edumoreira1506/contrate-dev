@@ -1,6 +1,7 @@
 package br.edu.utfpr.contratedev.model.service;
 
 import br.edu.utfpr.contratedev.dto.UserDTO;
+import br.edu.utfpr.contratedev.error.ValidationError;
 import br.edu.utfpr.contratedev.model.dao.RoleDAO;
 import br.edu.utfpr.contratedev.model.dao.UserDAO;
 import br.edu.utfpr.contratedev.model.domain.Role;
@@ -55,5 +56,19 @@ public class UserService extends AbstractService<String, User> {
             JPAUtil.closeEntityManager();
         }
         return isSuccess;
+    }
+    
+    public List<ValidationError> paramValidation(String id) {
+        List<ValidationError> errors = new ArrayList<>();
+
+        if (id == null || id.isEmpty()) {
+            errors.add(new ValidationError("id", "O identificador do item é obrigatório."));
+        }
+
+        User user = getById(id);
+        if (user == null) {
+            errors.add(new ValidationError("id", "O item não foi encontrado."));
+        }
+        return (errors.isEmpty() ? null : errors);
     }
 }
