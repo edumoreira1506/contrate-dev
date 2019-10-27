@@ -51,8 +51,8 @@ public class UsersController extends HttpServlet {
 
 	        request.setAttribute("users", usersDTO);
 	        
-	        String route = "/WEB-INF/view/admin/users.jsp";
-			request.getRequestDispatcher(route).forward(request, response);	
+	        String address = "/WEB-INF/view/admin/users.jsp";
+			request.getRequestDispatcher(address).forward(request, response);	
 		} else if(request.getServletPath().contains(Routes.DELETE)) {
 			String id = request.getParameter("id");
 

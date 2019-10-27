@@ -28,7 +28,7 @@ import br.edu.utfpr.contratedev.util.Sha256Generator;
 /**
  * Servlet implementation class CompanyController
  */
-@WebServlet("/a/empresas/cadastrar")
+@WebServlet({"/a/empresas/cadastrar", "/a/empresas/listar"})
 public class CompanyController extends HttpServlet {
 	CompanyService companyService = new CompanyService();
 	RoleService roleService = new RoleService();
@@ -48,8 +48,22 @@ public class CompanyController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String address = "/WEB-INF/view/admin/register-company-form.jsp";
-        request.getRequestDispatcher(address).forward(request, response);
+		if(request.getServletPath().contains(Routes.CREATE)) {
+			String address = "/WEB-INF/view/admin/register-company-form.jsp";
+	        request.getRequestDispatcher(address).forward(request, response);	
+		} else if (request.getServletPath().contains(Routes.READ)) {
+			List<Company> companies = companyService.findAll();
+	        List<CompanyDTO> companiesDTO = new ArrayList<>();
+
+	        for(Company c : companies){
+	            companiesDTO.add(CompanyMapper.toDTO(c));
+	        }
+
+	        request.setAttribute("companies", companiesDTO);
+	        
+	        String address = "/WEB-INF/view/admin/companies.jsp";
+			request.getRequestDispatcher(address).forward(request, response);	
+		}
 	}
 
 	/**
