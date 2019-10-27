@@ -69,6 +69,10 @@
   text-transform: uppercase;
   font-weight: 900;
 }
+.Form__subtitle {
+  margin: 5px 0 5px 0;
+  text-align: center;
+}
 .Form form {
   height: auto;
   background: #cfcfcf;

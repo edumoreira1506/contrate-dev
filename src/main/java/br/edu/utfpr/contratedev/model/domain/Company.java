@@ -22,7 +22,7 @@ public class Company {
     public Company() {
     }
     
-	public Company(String name, String description, User manager) {
+	public Company(User manager, String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;

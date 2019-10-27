@@ -104,7 +104,7 @@ public class UsersController extends HttpServlet {
             boolean isSuccess = persist(request, response, userDTO, role);
 
             if(!isSuccess){
-                String address = "/WEB-INF/view/user/register-user-form.jsp";
+                String address = "/WEB-INF/view/admin/register-user-form.jsp";
 
                 errors = new ArrayList<>();
                 errors.add(new ValidationError("", "Erro ao persistir os dados."));
