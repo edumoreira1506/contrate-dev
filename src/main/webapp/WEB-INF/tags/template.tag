@@ -58,6 +58,19 @@
     </div>
     <jsp:doBody />
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <script src="https://kit.fontawesome.com/a294e857dc.js" crossorigin="anonymous"></script>
+  <c:if test="${not empty errors}">
+    <c:forEach var="error" items="${errors}">
+	  <script>
+	    swal('Ops', '${error.message}', 'error')
+	  </script>
+    </c:forEach>
+  </c:if>
+  <c:if test="${not empty message}">
+    <script>
+      swal('Ops', ${message}, 'error')
+    </script>
+  </c:if>
 </body>
 </html>
