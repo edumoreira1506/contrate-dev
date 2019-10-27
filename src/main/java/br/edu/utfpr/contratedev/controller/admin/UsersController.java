@@ -19,11 +19,12 @@ import br.edu.utfpr.contratedev.model.mapper.UserMapper;
 import br.edu.utfpr.contratedev.model.service.RoleService;
 import br.edu.utfpr.contratedev.model.service.UserService;
 import br.edu.utfpr.contratedev.util.Routes;
+import br.edu.utfpr.contratedev.util.Sha256Generator;
 
 /**
  * Servlet implementation class UsersController
  */
-@WebServlet({"/a/usuarios/listar", "/a/usuarios/deletar", "/a/usuarios/cadastrar"})
+@WebServlet({"/a/usuarios/listar", "/a/usuarios/remover", "/a/usuarios/cadastrar"})
 public class UsersController extends HttpServlet {
 	UserService userService = new UserService();
 	RoleService roleService = new RoleService();
@@ -42,7 +43,10 @@ public class UsersController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getServletPath().contains(Routes.READ)){ 
+		if(request.getServletPath().contains(Routes.CREATE)) {
+			String address = "/WEB-INF/view/admin/register-user-form.jsp";
+            request.getRequestDispatcher(address).forward(request, response);
+		}else if(request.getServletPath().contains(Routes.READ)) { 
 			List<User> users = userService.findAll();
 	        List<UserDTO> usersDTO = new ArrayList<>();
 
@@ -83,8 +87,82 @@ public class UsersController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String name = request.getParameter("name");
+		String language = request.getParameter("language");
+		String email = request.getParameter("email");
+		String description = request.getParameter("description");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirm_password");
+        String cellphone = request.getParameter("cellphone");
+        char gender = request.getParameter("gender") == "M" ? 'm' : 'f';
+        String role = request.getParameter("role");
+        
+        UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, confirmPassword);
+        List<ValidationError> errors = formValidation(userDTO);
+
+        boolean hasError = errors != null;
+
+        if(hasError){
+            sendError(request, response, errors);
+            return;
+        }
+
+        if(request.getServletPath().contains(Routes.CREATE)){
+            boolean isSuccess = persist(request, response, userDTO, role);
+
+            if(!isSuccess){
+                String address = "/WEB-INF/view/user/register-user-form.jsp";
+
+                errors = new ArrayList<>();
+                errors.add(new ValidationError("", "Erro ao persistir os dados."));
+
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher(address).forward(request, response);
+                return;
+            }
+
+            String route = request.getContextPath() + "usuarios/listar";
+            response.sendRedirect(route);
+        }
 	}
+	
+	private boolean persist(HttpServletRequest request, HttpServletResponse response, UserDTO userDTO, String role) throws IOException, ServletException {
+        UserMapper userMapper = new UserMapper();
+        User user = userMapper.toEntity(userDTO);
+
+        final String hashed = Sha256Generator.generate(user.getPassword());
+        user.setPassword(hashed);
+
+        Role roleDb = new Role(userDTO.getEmail(), role);
+        return userService.saveUserAndRole(user, roleDb);
+    }
+	
+	private void sendError(HttpServletRequest request, HttpServletResponse response, List<ValidationError> errors) throws ServletException, IOException {
+        String address = "/WEB-INF/view/admin/register-user-form.jsp";
+        request.setAttribute("errors", errors);
+        request.getRequestDispatcher(address).forward(request, response);
+    }
+	
+	private List<ValidationError> formValidation(UserDTO userDTO) {
+        List<ValidationError> errors = new ArrayList<>();
+
+        if (userDTO.getName() == null || userDTO.getName().isEmpty()) {
+            errors.add(new ValidationError("name", "O campo nome é obrigatório."));
+        }
+
+        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
+            errors.add(new ValidationError("email", "O campo email é obrigatório."));
+        }
+
+        if (userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
+            errors.add(new ValidationError("password", "O campo senha é obrigatório."));
+        }
+
+        if (!userDTO.getPassword().equals(userDTO.getRepassword())) {
+            errors.add(new ValidationError("password", "A confirmação da senha está diferente."));
+        }
+
+        return (errors.isEmpty() ? null : errors);
+    }
 
 }

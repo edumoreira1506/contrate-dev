@@ -8,10 +8,32 @@ public class UserDTO {
 	private String cellphone;
 	private String password;
 	private char gender;
+	private String repassword;
 
 	public UserDTO() {
 	}
 
+	public UserDTO(
+			String name,
+			String language,
+			String description,
+			String email,
+			String cellphone,
+			String password,
+			char gender,
+			String repassword
+		) {
+			super();
+			this.name = name;
+			this.language = language;
+			this.description = description;
+			this.email = email;
+			this.cellphone = cellphone;
+			this.password = password;
+			this.gender = gender;
+			this.repassword = repassword;
+		}
+	
 	public UserDTO(
 		String name,
 		String language,
@@ -49,6 +71,10 @@ public class UserDTO {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public String getRepassword() {
+		return repassword;
 	}
 
 	public void setDescription(String description) {
