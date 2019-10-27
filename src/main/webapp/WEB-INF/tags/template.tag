@@ -23,6 +23,10 @@
 <link rel="stylesheet" href="resources/css/template.css"></link>
 <link rel="stylesheet" href="resources/css/login.css"></link>
 
+<c:if test="${role eq 'a'}">
+  <link rel="stylesheet" href="resources/css/admin.css"></link>
+</c:if>
+
 </head>
 <body>
   <div class="Template">
@@ -36,6 +40,14 @@
         <div class="col-md-9">
           <ul class="Template__menu__links">
             <c:if test="${not empty username}">
+              <c:if test="${role eq 'a'}">
+	             <li class="Template__menu__links_link transition">
+	               <a href="a/usuarios/listar" class="transition">Usuários</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="a/usuarios/cadastrar" class="transition">Novo usuário</a>            
+	           	 </li>
+	           </c:if>
               <li class="Template__menu__links_link transition">
 	             <a href="logout" class="transition">Sair</a>            
 	           </li>
@@ -46,5 +58,6 @@
     </div>
     <jsp:doBody />
   </div>
+  <script src="https://kit.fontawesome.com/a294e857dc.js" crossorigin="anonymous"></script>
 </body>
 </html>

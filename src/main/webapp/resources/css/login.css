@@ -29,6 +29,10 @@
   color: #ff0000;
   text-transform: uppercase;	
 }
+.Login__area__error__text {
+  margin: 0;
+  font-size: 15px;
+}
 .Login__area__header__title {
   font-size: 40px;
   text-transform: uppercase;

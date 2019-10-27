@@ -46,14 +46,19 @@ public class LoginController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("username", request.getUserPrincipal().getName());
 			
+			String address = request.getContextPath();
 			if(request.isUserInRole(Constants.ADMIN)) {
-				String address = request.getContextPath() + "/a";
-				response.sendRedirect(address);
+				session.setAttribute("role", "a");
+				address += "/a";
+			} else if(request.isUserInRole(Constants.MANAGER)) {
+				address += "/g";
+				session.setAttribute("role", "g");
+			} else {
+				session.setAttribute("role", "u");
+				address += "/u";
 			}
-			else {
-				String address = request.getContextPath() + "/u";
-				response.sendRedirect(address);
-			}
+			
+			response.sendRedirect(address);
 		}
 		catch (Exception e) {
 			response.sendRedirect("login?error");
