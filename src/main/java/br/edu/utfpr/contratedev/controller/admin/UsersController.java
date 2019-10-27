@@ -18,6 +18,7 @@ import br.edu.utfpr.contratedev.model.domain.User;
 import br.edu.utfpr.contratedev.model.mapper.UserMapper;
 import br.edu.utfpr.contratedev.model.service.RoleService;
 import br.edu.utfpr.contratedev.model.service.UserService;
+import br.edu.utfpr.contratedev.util.Constants;
 import br.edu.utfpr.contratedev.util.Routes;
 import br.edu.utfpr.contratedev.util.Sha256Generator;
 
@@ -31,18 +32,12 @@ public class UsersController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UsersController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		if(request.getServletPath().contains(Routes.CREATE)) {
 			String address = "/WEB-INF/view/admin/register-user-form.jsp";
             request.getRequestDispatcher(address).forward(request, response);
@@ -70,15 +65,13 @@ public class UsersController extends HttpServlet {
 
 	        boolean isSuccess = userService.deleteUserAndRole(id);
 	        String message = null;
-	        if(isSuccess){
-	            message = "Usuário removido com sucesso!";
-	        }
-	        else{
+	        if(isSuccess) {
+	        	message = "Usuário removido com sucesso!";
+	        } else {
 	            message = "Oppss! O usuário não pôde ser removido.";
 	        }
 	        String address = request.getContextPath() + "/a/usuarios/listar";
-	        //request.setAttribute("flash.message", message);
-	        //como a ação altera o estado do servidor, faz redirecionamento
+	        request.setAttribute("flash.message", message);
 	        response.sendRedirect(address);	
 		}
 	}
@@ -98,7 +91,7 @@ public class UsersController extends HttpServlet {
         String role = request.getParameter("role");
         
         UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, confirmPassword);
-        List<ValidationError> errors = formValidation(userDTO);
+        List<ValidationError> errors = formValidation(userDTO, role);
 
         boolean hasError = errors != null;
 
@@ -121,14 +114,13 @@ public class UsersController extends HttpServlet {
                 return;
             }
 
-            String route = request.getContextPath() + "usuarios/listar";
+            String route = request.getContextPath() + "/a/usuarios/listar";
             response.sendRedirect(route);
         }
 	}
 	
 	private boolean persist(HttpServletRequest request, HttpServletResponse response, UserDTO userDTO, String role) throws IOException, ServletException {
-        UserMapper userMapper = new UserMapper();
-        User user = userMapper.toEntity(userDTO);
+        User user = UserMapper.toEntity(userDTO);
 
         final String hashed = Sha256Generator.generate(user.getPassword());
         user.setPassword(hashed);
@@ -143,9 +135,13 @@ public class UsersController extends HttpServlet {
         request.getRequestDispatcher(address).forward(request, response);
     }
 	
-	private List<ValidationError> formValidation(UserDTO userDTO) {
+	private List<ValidationError> formValidation(UserDTO userDTO, String role) {
         List<ValidationError> errors = new ArrayList<>();
 
+        if (role.isEmpty()) {
+             errors.add(new ValidationError("role", "Tipo deve ser admin ou comum."));
+        }
+        
         if (userDTO.getName() == null || userDTO.getName().isEmpty()) {
             errors.add(new ValidationError("name", "O campo nome é obrigatório."));
         }
