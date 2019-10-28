@@ -21,12 +21,13 @@ public class Company {
     
     public Company() {
     }
-    
-	public Company(User manager, String name, String description) {
+	
+	public Company(User manager, String name, String description, Long id) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.manager = manager;
+		this.id = id;
 	}
 
 	public String getName() {

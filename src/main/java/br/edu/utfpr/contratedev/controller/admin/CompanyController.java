@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.edu.utfpr.contratedev.dto.CompanyDTO;
 import br.edu.utfpr.contratedev.dto.UserDTO;
+import br.edu.utfpr.contratedev.error.ParamException;
 import br.edu.utfpr.contratedev.error.ValidationError;
 import br.edu.utfpr.contratedev.model.domain.Company;
 import br.edu.utfpr.contratedev.model.domain.Role;
@@ -28,7 +29,7 @@ import br.edu.utfpr.contratedev.util.Sha256Generator;
 /**
  * Servlet implementation class CompanyController
  */
-@WebServlet({"/a/empresas/cadastrar", "/a/empresas/listar"})
+@WebServlet({"/a/empresas/cadastrar", "/a/empresas/listar", "/a/empresas/remover"})
 public class CompanyController extends HttpServlet {
 	CompanyService companyService = new CompanyService();
 	RoleService roleService = new RoleService();
@@ -63,6 +64,26 @@ public class CompanyController extends HttpServlet {
 	        
 	        String address = "/WEB-INF/view/admin/companies.jsp";
 			request.getRequestDispatcher(address).forward(request, response);	
+		} else if (request.getServletPath().contains(Routes.DELETE)) {
+			Long id = Long.parseLong(request.getParameter("id"));
+			
+	        List<ValidationError> errors = companyService.paramValidation(id);
+	        boolean hasError = errors != null;
+
+	        if (hasError) {
+	            throw new ParamException("Parâmetros incorretos!");
+	        }
+
+	        boolean isSuccess = companyService.deleteCompany(id);
+	        String message = null;
+	        if(isSuccess) {
+	        	message = "Empresa removida com sucesso!";
+	        } else {
+	            message = "A empresa não pôde ser removido.";
+	        }
+	        String address = request.getContextPath() + "/a/empresas/listar";
+	        request.setAttribute("flash.message", message);
+	        response.sendRedirect(address);	
 		}
 	}
 

@@ -17,7 +17,7 @@
             <td>${c.name}</td>
             <td>${c.manager.name}</td>
             <td>
-	            <a href="a/empresas/remover?id=${u.id}" class="Table__action transition">
+	            <a href="a/empresas/remover?id=${c.id}" class="Table__action transition">
 	              <i class="fas fa-trash-alt"></i>
 	            </a>
             </td>
