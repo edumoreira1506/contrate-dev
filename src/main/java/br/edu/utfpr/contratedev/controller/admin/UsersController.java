@@ -51,8 +51,8 @@ public class UsersController extends HttpServlet {
 
 	        request.setAttribute("users", usersDTO);
 	        
-	        String route = "/WEB-INF/view/admin/users.jsp";
-			request.getRequestDispatcher(route).forward(request, response);	
+	        String address = "/WEB-INF/view/admin/users.jsp";
+			request.getRequestDispatcher(address).forward(request, response);	
 		} else if(request.getServletPath().contains(Routes.DELETE)) {
 			String id = request.getParameter("id");
 
@@ -104,7 +104,7 @@ public class UsersController extends HttpServlet {
             boolean isSuccess = persist(request, response, userDTO, role);
 
             if(!isSuccess){
-                String address = "/WEB-INF/view/user/register-user-form.jsp";
+                String address = "/WEB-INF/view/admin/register-user-form.jsp";
 
                 errors = new ArrayList<>();
                 errors.add(new ValidationError("", "Erro ao persistir os dados."));

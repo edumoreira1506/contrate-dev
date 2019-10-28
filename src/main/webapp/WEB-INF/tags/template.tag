@@ -45,6 +45,12 @@
 	               <a href="a/usuarios/listar" class="transition">Usuários</a>            
 	           	 </li>
 	           	 <li class="Template__menu__links_link transition">
+	               <a href="a/empresas/listar" class="transition">Empresas</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="a/empresas/cadastrar" class="transition">Nova empresa</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
 	               <a href="a/usuarios/cadastrar" class="transition">Novo usuário</a>            
 	           	 </li>
 	           </c:if>
