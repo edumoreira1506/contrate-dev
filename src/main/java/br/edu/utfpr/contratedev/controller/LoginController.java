@@ -29,8 +29,16 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String route = "/WEB-INF/view/login.jsp";
-		request.getRequestDispatcher(route).forward(request, response);
+		if(request.isUserInRole(Constants.ADMIN)) {
+			response.sendRedirect("a/home");
+		} else if(request.isUserInRole(Constants.MANAGER)) {
+			response.sendRedirect("g/home");
+		} else if(request.isUserInRole(Constants.USER)) {
+			response.sendRedirect("u/home");
+		} else {
+			String route = "/WEB-INF/view/login.jsp";
+			request.getRequestDispatcher(route).forward(request, response);	
+		}
 	}
 
 	/**
