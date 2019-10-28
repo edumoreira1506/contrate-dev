@@ -130,3 +130,64 @@
   color: #000;
   background: #fff;
 }
+.JobsList {
+  list-style: none;
+  padding: 75px 0 0 0;
+  max-width: 80%;
+  margin: 0 auto;
+}
+.Job {
+  background: #ccc;
+  padding: 10px 0 10px 15px;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
+}
+.Job:hover {
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+.Job__title {
+  border-bottom: solid 1px;
+  width: 65%;
+}
+.Job__title:hover {
+  width: 80%;
+}
+.Job__title h2 {
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+.Job__description {
+  margin: 6px 0 0 0;
+}
+.Job__description p {
+  font-size: 12px;
+}
+.Job__button {
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  padding: 10px;
+  width: 250px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 15px;
+  border: solid 1px transparent;
+  cursor: pointer;
+}
+.Job__button:hover {
+  background: #fff;
+  color: #000;
+  border: solid 1px #000;
+}
+.Job__button a {
+  color: inherit;
+}
+.Job__button a:hover {
+  text-decoration: none !important;
+}
+.Job__button a:focus {
+  outline: 0;
+}
