@@ -33,7 +33,7 @@
           </div>
         </form>
         <div class="Login__area__form__register">
-          <a href="#">
+          <a href="registrar-se">
             Registrar-se
           </a>
         </div>
