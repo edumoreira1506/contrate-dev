@@ -14,7 +14,7 @@
 					<p>${j.description}</p>
 				</div>
 				<div class="Job__button transition">
-					<a href="#">Candidatar-se</a>
+					<a href="u/vagas/editar?id=${j.id}">Candidatar-se</a>
 				</div>  
 	    </li>
     </c:forEach>

@@ -81,6 +81,11 @@
 	  </script>
     </c:forEach>
   </c:if>
+  <c:if test="${not empty success}">
+    <script>
+      swal('Boa!', ${success}, 'success')
+    </script>
+  </c:if>
   <c:if test="${not empty message}">
     <script>
       swal('Ops', ${message}, 'error')
