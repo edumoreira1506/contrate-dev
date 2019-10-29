@@ -27,7 +27,7 @@ import br.edu.utfpr.contratedev.util.Routes;
 /**
  * Servlet implementation class JobController
  */
-@WebServlet({"/g/vagas/cadastrar", "/g/vagas/listar", "/g/vagas/editar"})
+@WebServlet({"/g/vagas/cadastrar", "/g/vagas/listar", "/g/vagas/editar", "/g/vagas/visualizar"})
 public class JobController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -75,6 +75,16 @@ public class JobController extends HttpServlet {
 			request.setAttribute("job", jobDTO);
 			
 			String address = "/WEB-INF/view/manager/edit-job.jsp";
+			request.getRequestDispatcher(address).forward(request, response);
+		} else if(request.getServletPath().contains(Routes.READ_ONE)) {
+			Long id = Long.parseLong(request.getParameter("id"));
+			
+			Job job = jobService.getById(id);
+			JobDTO jobDTO = JobMapper.toDTO(job);
+			
+			request.setAttribute("job", jobDTO);
+			
+			String address = "/WEB-INF/view/manager/job.jsp";
 			request.getRequestDispatcher(address).forward(request, response);
 		}
 	}

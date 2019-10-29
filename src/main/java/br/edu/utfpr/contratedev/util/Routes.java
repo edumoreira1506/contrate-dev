@@ -8,4 +8,5 @@ public class Routes {
 	public static final String READ = "listar";
 	public static final String UPDATE = "editar";
 	public static final String DELETE = "remover";
+	public static final String READ_ONE = "visualizar";
 }

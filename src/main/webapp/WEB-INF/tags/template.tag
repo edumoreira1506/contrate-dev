@@ -23,10 +23,6 @@
 <link rel="stylesheet" href="resources/css/template.css"></link>
 <link rel="stylesheet" href="resources/css/login.css"></link>
 
-<c:if test="${role eq 'a'}">
-  <link rel="stylesheet" href="resources/css/admin.css"></link>
-</c:if>
-
 </head>
 <body>
   <div class="Template">

@@ -16,6 +16,9 @@
 					<div class="Job__button transition">
 						<a href="g/vagas/editar?id=${j.id}">Editar</a>
 					</div>  
+					<div class="Job__button transition">
+					  <a href="g/vagas/visualizar?id=${j.id}">Visualizar</a>
+					</div>
 				</li>
 			</c:forEach>
 		</ul>
