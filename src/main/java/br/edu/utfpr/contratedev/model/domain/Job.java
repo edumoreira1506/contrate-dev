@@ -27,13 +27,14 @@ public class Job {
     public Job() {
     }
 
-    public Job(String name, Long salary, String description, Set<User> candidates, Company company) {
+    public Job(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
 		super();
 		this.name = name;
 		this.salary = salary;
 		this.description = description;
 		this.candidates = candidates;
 		this.company = company;
+		this.id = id;
 	}
 
 	public Company getCompany() {

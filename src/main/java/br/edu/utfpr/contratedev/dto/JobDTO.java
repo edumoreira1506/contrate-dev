@@ -26,6 +26,16 @@ public class JobDTO {
 		this.company = company;
 	}
     
+    
+    public JobDTO(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
+		this.name = name;
+		this.salary = salary;
+		this.description = description;
+		this.candidates = candidates;
+		this.company = company;
+		this.id = id;
+	}
+    
 	public String getName() {
 		return name;
 	}
@@ -68,5 +78,9 @@ public class JobDTO {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

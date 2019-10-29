@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.utfpr.contratedev.dto.CompanyDTO;
 import br.edu.utfpr.contratedev.dto.JobDTO;
 import br.edu.utfpr.contratedev.error.ValidationError;
 import br.edu.utfpr.contratedev.model.domain.Company;
@@ -26,7 +27,7 @@ import br.edu.utfpr.contratedev.util.Routes;
 /**
  * Servlet implementation class JobController
  */
-@WebServlet({"/g/vagas/cadastrar", "/g/vagas/listar"})
+@WebServlet({"/g/vagas/cadastrar", "/g/vagas/listar", "/g/vagas/editar"})
 public class JobController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -64,6 +65,16 @@ public class JobController extends HttpServlet {
 	        request.setAttribute("jobs", jobsDTO);
 	        
 	        String address = "/WEB-INF/view/manager/jobs.jsp";
+			request.getRequestDispatcher(address).forward(request, response);
+		} else if(request.getServletPath().contains(Routes.UPDATE)) {
+			Long id = Long.parseLong(request.getParameter("id"));
+			
+			Job job = jobService.getById(id);
+			JobDTO jobDTO = JobMapper.toDTO(job);
+			
+			request.setAttribute("job", jobDTO);
+			
+			String address = "/WEB-INF/view/manager/edit-job.jsp";
 			request.getRequestDispatcher(address).forward(request, response);
 		}
 	}
@@ -107,8 +118,32 @@ public class JobController extends HttpServlet {
 
             String route = request.getContextPath() + "/g/vagas/listar";
             response.sendRedirect(route);
+        } else if(request.getServletPath().contains(Routes.UPDATE)) {
+        	Long id = Long.parseLong(request.getParameter("id"));
+        	jobDTO.setId(id);
+        	
+        	boolean isSuccess = persistEdit(request, response, jobDTO);
+        	
+        	if(!isSuccess){
+                String address = "/WEB-INF/view/manager/edit-job.jsp";
+
+                errors = new ArrayList<>();
+                errors.add(new ValidationError("", "Erro ao persistir os dados."));
+
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher(address).forward(request, response);
+                return;
+            }
+        	
+        	String route = request.getContextPath() + "/g/vagas/listar";
+            response.sendRedirect(route);
         }
 	}
+	
+	private boolean persistEdit(HttpServletRequest request, HttpServletResponse response, JobDTO jobDTO) throws IOException, ServletException {
+        Job job = JobMapper.toEntity(jobDTO);
+        return jobService.update(job);
+    }
 	
 	private boolean persist(HttpServletRequest request, HttpServletResponse response, JobDTO jobDTO) throws IOException, ServletException {
         Job job = JobMapper.toEntity(jobDTO);
