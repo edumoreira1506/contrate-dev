@@ -54,6 +54,14 @@
 	               <a href="a/usuarios/cadastrar" class="transition">Novo usuário</a>            
 	           	 </li>
 	           </c:if>
+	           <c:if test="${role eq 'g'}">
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="g/vagas/cadastrar" class="transition">Nova vaga</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="g/vagas/listar" class="transition">Vagas</a>            
+	           	 </li>
+	           </c:if>
               <li class="Template__menu__links_link transition">
 	             <a href="logout" class="transition">Sair</a>            
 	           </li>

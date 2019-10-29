@@ -5,7 +5,7 @@
 <t:template title="Contrate DEV - Empresas">
   <jsp:body>
     <div class="Table">
-      <h2 class="Table__title">EMPRESAS CADASTRADOS</h2>
+      <h2 class="Table__title">EMPRESAS CADASTRADAS</h2>
       <table>
         <tr class="Table__header">
           <td>Nome da Empresa</td>

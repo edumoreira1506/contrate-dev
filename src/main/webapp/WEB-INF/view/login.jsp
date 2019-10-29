@@ -22,10 +22,10 @@
             <input class="transition" type="password" name="password" required placeholder="senha">
           </div>
           <c:if test="${param.error != null}">
-			<div class="Login__area__error">
-			 	<h3 class="Login__area__error__text">E-mail ou senha inválidos</h3>
-			</div>
-		  </c:if>
+            <div class="Login__area__error">
+              <h3 class="Login__area__error__text">E-mail ou senha inválidos</h3>
+            </div>
+		      </c:if>
           <div class="Login__area__form__button">
             <button type="submit" class="transition">
               Login

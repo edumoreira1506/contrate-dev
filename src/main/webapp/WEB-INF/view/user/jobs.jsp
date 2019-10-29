@@ -6,18 +6,18 @@
   <jsp:body>
 	<ul class="JobsList">
 	  <c:forEach var="j" items="${jobs}">
-        <li class="Job">
-		  <div class="Job__title transition">
-		    <h2>${j.name} na ${j.company}</h2>
-		  </div>
-		  <div class="Job__description">
-			<p>${j.description}</p>
-		  </div>
-		  <div class="Job__button transition">
-		    <a href="#">Candidatar-se</a>
-		  </div>  
+      <li class="Job">
+				<div class="Job__title transition">
+					<h2>${j.name} na ${j.company.name}</h2>
+				</div>
+				<div class="Job__description">
+					<p>${j.description}</p>
+				</div>
+				<div class="Job__button transition">
+					<a href="#">Candidatar-se</a>
+				</div>  
 	    </li>
-      </c:forEach>
+    </c:forEach>
 	</ul>
   </jsp:body>
 </t:template>
