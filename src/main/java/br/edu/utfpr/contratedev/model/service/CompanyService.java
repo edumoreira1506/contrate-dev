@@ -71,4 +71,9 @@ public class CompanyService extends AbstractService<Long, Company> {
         }
         return (errors.isEmpty() ? null : errors);
     }
+    
+    public Company getByForeignOrObjectProperty(String property, Object value) {
+    	Company company = dao.getByForeignOrObjectProperty(property, value);
+    	return company;
+    }
 }

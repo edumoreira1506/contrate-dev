@@ -21,17 +21,30 @@ public class Job {
     @ManyToMany
     private Set<User> candidates;
     
+    @ManyToOne
+    private Company company;
+    
     public Job() {
     }
 
-    public Job(String name, Long salary, String description, Set<User> candidates) {
+    public Job(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
 		super();
 		this.name = name;
 		this.salary = salary;
 		this.description = description;
 		this.candidates = candidates;
+		this.company = company;
+		this.id = id;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
 	public String getName() {
 		return name;
 	}

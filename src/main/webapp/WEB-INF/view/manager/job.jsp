@@ -2,22 +2,26 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<t:template title="Contrate DEV - Empresas">
+<t:template title="Contrate DEV - Vaga">
   <jsp:body>
     <div class="Table">
-      <h2 class="Table__title">EMPRESAS CADASTRADAS</h2>
+      <h2 class="Table__title">CANDIDATOS</h2>
       <table>
         <tr class="Table__header">
-          <td>Nome da Empresa</td>
-          <td>Gerente responsável</td>
+          <td>Nome Completo</td>
+          <td>Linguagem</td>
+          <td>E-mail</td>
+          <td>Telefone/Celular</td>
           <td>Ações</td>
         </tr>
-        <c:forEach var="c" items="${companies}">
+        <c:forEach var="c" items="${job.candidates}">
           <tr class="Table__cell">
             <td>${c.name}</td>
-            <td>${c.manager.name}</td>
+            <td>${c.language}</td>
+            <td>${c.email}</td>
+            <td>${c.cellphone}</td>
             <td>
-	            <a href="a/empresas/remover?id=${c.id}" class="Table__action transition">
+	            <a href="g/usuarios/visualizar?id=${c.email}" class="Table__action transition">
 	              <i class="fas fa-trash-alt"></i>
 	            </a>
             </td>

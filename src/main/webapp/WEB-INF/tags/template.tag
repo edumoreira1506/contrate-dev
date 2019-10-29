@@ -23,10 +23,6 @@
 <link rel="stylesheet" href="resources/css/template.css"></link>
 <link rel="stylesheet" href="resources/css/login.css"></link>
 
-<c:if test="${role eq 'a'}">
-  <link rel="stylesheet" href="resources/css/admin.css"></link>
-</c:if>
-
 </head>
 <body>
   <div class="Template">
@@ -54,6 +50,14 @@
 	               <a href="a/usuarios/cadastrar" class="transition">Novo usuário</a>            
 	           	 </li>
 	           </c:if>
+	           <c:if test="${role eq 'g'}">
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="g/vagas/cadastrar" class="transition">Nova vaga</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
+	               <a href="g/vagas/listar" class="transition">Vagas</a>            
+	           	 </li>
+	           </c:if>
               <li class="Template__menu__links_link transition">
 	             <a href="logout" class="transition">Sair</a>            
 	           </li>
@@ -72,6 +76,11 @@
 	    swal('Ops', '${error.message}', 'error')
 	  </script>
     </c:forEach>
+  </c:if>
+  <c:if test="${not empty success}">
+    <script>
+      swal('Boa!', ${success}, 'success')
+    </script>
   </c:if>
   <c:if test="${not empty message}">
     <script>

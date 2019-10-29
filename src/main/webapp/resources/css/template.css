@@ -165,6 +165,8 @@
   font-size: 12px;
 }
 .Job__button {
+  display: inline-block;
+  margin: 0 5px 0 5px;
   text-transform: uppercase;
   background: #000;
   color: #fff;
@@ -190,4 +192,92 @@
 }
 .Job__button a:focus {
   outline: 0;
+}
+table::-webkit-scrollbar{ background: #fff ;width: 10px;}
+table::-webkit-scrollbar-button{ background: #000;}
+table::-webkit-scrollbar-track{}
+table::-webkit-scrollbar-track-piece {}
+table::-webkit-scrollbar-thumb{ background: #000;}
+table::-webkit-scrollbar-corner {}
+table::-webkit-resizer{}
+
+.Table {
+  margin-top: 85px;
+}
+.Table__title {
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.Table table {
+  display: block;
+  max-height: 65vh;
+  overflow: hidden auto;
+  width: 80%;
+  margin: 0 auto;
+}
+.Table table tbody {
+  display: table;
+  margin: 0 auto;
+  background: #cfcfcf;
+  border-radius: 10px;
+  width: 100%;
+  text-transform: uppercase;
+}
+.Table__header {
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+.Table__header td {
+  padding: 10px 0px 10px 0;
+}
+.Table__cell {
+  height: 40px;
+}
+.Table__cell td {
+  font-size: 13px;
+  text-align: center;
+}
+.Table__action {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: #000;
+  color: #fff;
+  border: transparent;
+  border-radius: 6px;
+  padding-top: 4px;
+}
+.Table__action:hover {
+  background: #fff;
+  color: #000;	
+}
+.User {
+  background: #cfcfcf;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 13px;
+  padding: 1px 15px 10px 15px;
+}
+.User__name {
+  font-weight: 900;
+  margin: 10px 0 5px 0;
+}
+.User__language {
+  font-style: italic;	
+}
+.User__description {
+  margin: 25px 0 25px 0;
+  font-weight: 700;
+  font-size: 15px;
+}
+.User__contact {
+  font-size: 15px;
+  margin: 4px 0 4px 0;
+}
+.center {
+  display: block;
+  margin-top: 90px;
 }
