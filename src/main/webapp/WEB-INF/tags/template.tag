@@ -60,6 +60,9 @@
 	           	 </li>
 	           </c:if>
               <li class="Template__menu__links_link transition">
+	             <a href="editar-perfil" class="transition">Editar perfil</a>            
+	           </li>
+              <li class="Template__menu__links_link transition">
 	             <a href="logout" class="transition">Sair</a>            
 	           </li>
 		    </c:if>
