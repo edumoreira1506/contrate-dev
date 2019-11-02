@@ -375,6 +375,28 @@ table::-webkit-resizer{}
 }
 
 @media screen and (max-width: 1000px) {
+  .JobsList{
+    padding: 120px 0 0 0;
+  }
+
+  .Job {
+    padding: 10px;
+  }
+
+  .Job__title {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .Job__description {
+    text-align: center;
+  }
+
+  .Job__button {
+    width: 120px;
+    margin: 0 auto;
+  }
+
   .Form__input--half{
     margin: 10px 6px 10px 6px;
   }
