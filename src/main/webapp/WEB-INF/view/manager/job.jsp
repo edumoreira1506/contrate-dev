@@ -4,6 +4,23 @@
 
 <t:template title="Contrate DEV - Vaga">
   <jsp:body>
+    <div class="Modal__background hidden" id="modal-github">
+      <div class="MyModal">        
+        <div class="Modal__header">
+          <span id="close-modal">
+            X
+          </span>
+          <div class="row">
+            <div class="col-md-4">
+              <img id="user-image" id="modal-image" class="Modal__image">
+            </div>
+            <div class="col-md-8">
+              <ul class="Modal__list" id="modal-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="Table">
       <h2 class="Table__title">CANDIDATOS</h2>
       <table>
