@@ -1,4 +1,6 @@
 $(document).ready(() => {
+  checkLocalStorage()
+
   $('#cellphone').mask('(99)99999-9999')
 
   $('.Modal__background').click(() => {
@@ -6,9 +8,14 @@ $(document).ready(() => {
   })
 
   $('#close-modal').click(() => {
-    closeModal
+    closeModal()
   })
 })
+
+checkLocalStorage = () => {
+  const lastAccess = localStorage.getItem('lastAccess');
+  if (!lastAccess) localStorage.setItem("lastAccess", new Date);
+}
 
 const showModal = () =>
   $('#modal-github').removeClass('hidden')
