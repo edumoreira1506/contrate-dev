@@ -1,9 +1,10 @@
 package br.edu.utfpr.contratedev.model.service;
 
-import br.edu.utfpr.contratedev.dto.UserDTO;
 import br.edu.utfpr.contratedev.error.ValidationError;
+import br.edu.utfpr.contratedev.model.dao.JobDAO;
 import br.edu.utfpr.contratedev.model.dao.RoleDAO;
 import br.edu.utfpr.contratedev.model.dao.UserDAO;
+import br.edu.utfpr.contratedev.model.domain.Job;
 import br.edu.utfpr.contratedev.model.domain.Role;
 import br.edu.utfpr.contratedev.model.domain.User;
 import br.edu.utfpr.contratedev.util.JPAUtil;
@@ -31,20 +32,30 @@ public class UserService extends AbstractService<String, User> {
             isSuccess = false;
             JPAUtil.rollBack();
         } finally {
-            JPAUtil.closeEntityManager();
+        	JPAUtil.closeEntityManager();
         }
+        
         return isSuccess;
     }
 
     public boolean deleteUserAndRole(String id){
         RoleDAO roleDAO= new RoleDAO();
+        JobDAO jobDAO = new JobDAO();
 
         boolean isSuccess = true;
         try {
             User user = dao.getById(id);
             Role role = roleDAO.getById(id);
-
+            List<Job> jobs = jobDAO.findAll();
             JPAUtil.beginTransaction();
+
+            for(Job job : jobs) {
+            	if (job.getCandidates().contains(user)) {
+            		job.removeCandidate(user);
+                	jobDAO.update(job);	
+            	}
+            }
+            
             dao.delete(user);
             roleDAO.delete(role);
             JPAUtil.commit();
@@ -52,9 +63,8 @@ public class UserService extends AbstractService<String, User> {
             e.printStackTrace();
             isSuccess = false;
             JPAUtil.rollBack();
-        } finally {
-            JPAUtil.closeEntityManager();
         }
+        
         return isSuccess;
     }
     

@@ -6,7 +6,7 @@
   <jsp:body>
 	<div class="Welcome">
        <div class="Welcome__title">
-         <h2>Bem vindo admin</h2>
+         <h2>Bem vindo usuário</h2>
        </div>
 	</div>
   </jsp:body>

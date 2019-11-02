@@ -36,19 +36,19 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  padding-top: 14px;
+  padding-top: 17px;
 }
 .Template__menu__links_link {
   list-style-type: none;
   display: inline-block;
-  font-size: 20px;
+  font-size: 15px;
   text-transform: uppercase;
 }
 .Template__menu__links_link a {
   text-decoration: none;
   cursor: pointer;
   color: #fff;
-  padding: 14px;
+  padding: 15px 5px 15px 5px;
 }
 .Template__menu__links_link a:hover {
   background: #fff;
@@ -155,6 +155,7 @@
   width: 80%;
 }
 .Job__title h2 {
+  font-size: 20px;
   margin: 0 0 8px 0;
   font-weight: 700;
 }
@@ -243,15 +244,10 @@ table::-webkit-resizer{}
   display: inline-block;
   width: 25px;
   height: 25px;
-  background: #000;
-  color: #fff;
+  background: #fff;
   border: transparent;
   border-radius: 6px;
   padding-top: 4px;
-}
-.Table__action:hover {
-  background: #fff;
-  color: #000;	
 }
 .User {
   background: #cfcfcf;
@@ -280,4 +276,58 @@ table::-webkit-resizer{}
 .center {
   display: block;
   margin-top: 90px;
+}
+.not-found {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.not-found__status {
+  text-align: center;
+  font-size: 150px;
+  font-weight: 700;
+  color: #000;
+  border-bottom: 10px solid #000;
+  padding-bottom: 25px;
+}
+.not-found__text {
+  font-style: italic;
+  font-weight: 100;
+  color: #737070;
+  font-size: 16px;
+  text-align: center;
+}
+.not-found__link {
+  display: block;
+  background: #000;
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: 36px;
+  border: solid 1px transparent;
+}
+.not-found__link:hover{
+  color: #fff;
+  border: solid 1px #fff;
+  background: #000;
+}
+.Icon {
+  height: 80%;
+  width: 80%;
+}
+.Welcome {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: table;
+}
+.Welcome__title h2 {
+  font-size: 55px;
+  font-weight: 100;
+  letter-spacing: 15px;	
 }

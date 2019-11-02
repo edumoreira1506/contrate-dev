@@ -9,7 +9,7 @@
       <form action="g/vagas/cadastrar" method="POST">
         <input type="text" class="Form__input" name="name" placeholder="Nome do cargo" required>
         <textarea name="description" class="Form__textarea" placeholder="Descrição da vaga" required></textarea>
-        <input type="number" class="Form__input" name="salary" placeholder="Salário (em centavos)" required>
+        <input type="text" class="Form__input" name="salary" placeholder="Salário (no formato brasileiro. Exemplo 2000,00)" required>
         <button class="Form__button transition" type="submit" class="transition">
           Cadastrar
         </button>

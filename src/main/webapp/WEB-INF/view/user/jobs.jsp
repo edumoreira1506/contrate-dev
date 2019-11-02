@@ -11,7 +11,7 @@
 					<h2>${j.name} na ${j.company.name}</h2>
 				</div>
 				<div class="Job__description">
-					<p>${j.description}</p>
+					<p>${j.description} | ${j.salary}</p>
 				</div>
 				<div class="Job__button transition">
 					<a href="u/vagas/editar?id=${j.id}">Candidatar-se</a>

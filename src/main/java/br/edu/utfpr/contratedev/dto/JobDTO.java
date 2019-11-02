@@ -13,21 +13,20 @@ import br.edu.utfpr.contratedev.model.domain.User;
 public class JobDTO {
 	private Long id;
     private String name;
-    private Long salary;
+    private String salary;
     private String description;
     private Set<User> candidates;
     private Company company;
     
-    public JobDTO(String name, Long salary, String description, Set<User> candidates, Company company) {
+    public JobDTO(String name, String salary, String description, Set<User> candidates, Company company) {
 		this.name = name;
 		this.salary = salary;
 		this.description = description;
 		this.candidates = candidates;
 		this.company = company;
-	}
+	}    
     
-    
-    public JobDTO(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
+    public JobDTO(String name, String salary, String description, Set<User> candidates, Company company, Long id) {
 		this.name = name;
 		this.salary = salary;
 		this.description = description;
@@ -35,6 +34,26 @@ public class JobDTO {
 		this.company = company;
 		this.id = id;
 	}
+    
+    public JobDTO(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
+		this.name = name;
+		this.salary = brazilianSalary(salary);
+		this.description = description;
+		this.candidates = candidates;
+		this.company = company;
+		this.id = id;
+	}
+    
+    public String brazilianSalary(Long salary) {
+    	salary = salary / 100;
+    	String stringSalary = salary.toString();
+    	if (stringSalary.contains(".")) {
+    		String[] arraySalary = stringSalary.split(".");
+        	return "R$" + arraySalary[0] + "," + arraySalary[1];	
+    	}
+    	
+    	return "R$" + stringSalary + ",00";
+    }
     
 	public String getName() {
 		return name;
@@ -44,7 +63,7 @@ public class JobDTO {
 		this.name = name;
 	}
 
-	public Long getSalary() {
+	public String getSalary() {
 		return salary;
 	}
 	
@@ -56,7 +75,7 @@ public class JobDTO {
 		return company;
 	}
 
-	public void setSalary(Long salary) {
+	public void setSalary(String salary) {
 		this.salary = salary;
 	}
 

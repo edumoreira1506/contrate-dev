@@ -22,7 +22,10 @@
             <td>${c.cellphone}</td>
             <td>
 	            <a href="g/usuarios/visualizar?id=${c.email}" class="Table__action transition">
-	              <i class="fas fa-trash-alt"></i>
+				  <img 
+				    src="resources/icons/user.svg" 
+					class="Icon"
+				  />
 	            </a>
             </td>
            </tr>

@@ -22,7 +22,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="resources/css/template.css"></link>
 <link rel="stylesheet" href="resources/css/login.css"></link>
-<link rel="stylesheet" href="http://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 </head>
 <body>
@@ -36,6 +35,9 @@
         </div>
         <div class="col-md-9">
           <ul class="Template__menu__links">
+            <li class="Template__menu__links_link transition">
+	            <a href="/contrate-dev" class="transition">Inicial</a>            
+	          </li>
             <c:if test="${not empty username}">
               <c:if test="${role eq 'a'}">
 	             <li class="Template__menu__links_link transition">
@@ -59,9 +61,14 @@
 	               <a href="g/vagas/listar" class="transition">Vagas</a>            
 	           	 </li>
 	           </c:if>
-              <li class="Template__menu__links_link transition">
+             <c:if test="${role eq 'u'}">
+             <li class="Template__menu__links_link transition">
+	               <a href="u/vagas/listar" class="transition">Vagas</a>            
+	           	 </li>
+	           	 <li class="Template__menu__links_link transition">
 	             <a href="editar-perfil" class="transition">Editar perfil</a>            
 	           </li>
+             </c:if>
               <li class="Template__menu__links_link transition">
 	             <a href="logout" class="transition">Sair</a>            
 	           </li>

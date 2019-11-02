@@ -1,9 +1,7 @@
 package br.edu.utfpr.contratedev.model.domain;
 
 import java.util.Set;
-
 import javax.persistence.*;
-import br.edu.utfpr.contratedev.util.Sha256Generator;
 
 @Entity
 @Table(name = "jobs")
@@ -27,16 +25,22 @@ public class Job {
     public Job() {
     }
 
-    public Job(String name, Long salary, String description, Set<User> candidates, Company company, Long id) {
+    public Job(String name, String salary, String description, Set<User> candidates, Company company, Long id) {
 		super();
 		this.name = name;
-		this.salary = salary;
+		this.salary = this.realSalary(salary);
 		this.description = description;
 		this.candidates = candidates;
 		this.company = company;
 		this.id = id;
 	}
 
+    public Long realSalary(String salary) {
+    	salary = salary.replace(".", "");
+    	salary = salary.replace(",", ".");
+    	return 100 * Long.parseLong(salary.substring(0, salary.length() - 3));
+    }
+    
 	public Company getCompany() {
 		return company;
 	}
@@ -79,6 +83,14 @@ public class Job {
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void addCandidate(User user) {
+    	this.candidates.add(user);
+	}
+	
+	public void removeCandidate(User user) {
+		this.candidates.remove(user);
 	}
 
 	@PrePersist

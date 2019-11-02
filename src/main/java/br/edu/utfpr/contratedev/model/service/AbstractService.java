@@ -87,4 +87,8 @@ public class AbstractService<PK, T> {
         }
         return isSuccess;
     }
+    
+    public Long count() {
+    	return dao.count();
+    }
 }

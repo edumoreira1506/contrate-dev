@@ -30,9 +30,7 @@ public class WelcomePageFilter implements Filter {
 		
 		String address = ((HttpServletRequest) request).getServletPath();
 		
-		if (!(address.equals("/") || address.equals(""))) {
-			chain.doFilter(request, response);
-		} else {
+		if (address.equals("/") || address.equals("")) {
 			HttpServletRequest req = (HttpServletRequest) request;
 
 			if (req.getUserPrincipal() == null) {
@@ -50,6 +48,8 @@ public class WelcomePageFilter implements Filter {
 					((HttpServletResponse) response).sendRedirect(address);
 				}
 			}
+		} else {
+			chain.doFilter(request, response);
 		}
 	}
 

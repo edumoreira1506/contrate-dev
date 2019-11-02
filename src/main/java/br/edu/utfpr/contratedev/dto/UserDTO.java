@@ -9,6 +9,7 @@ public class UserDTO {
 	private String password;
 	private char gender;
 	private String repassword;
+	private String github;
 
 	public UserDTO() {
 	}
@@ -21,6 +22,7 @@ public class UserDTO {
 			String cellphone,
 			String password,
 			char gender,
+			String github,
 			String repassword
 		) {
 			super();
@@ -32,6 +34,7 @@ public class UserDTO {
 			this.password = password;
 			this.gender = gender;
 			this.repassword = repassword;
+			this.github = github;
 		}
 	
 	public UserDTO(
@@ -41,9 +44,11 @@ public class UserDTO {
 		String email,
 		String cellphone,
 		String password,
-		char gender
+		char gender,
+		String github
 	) {
 		super();
+		this.github = github;
 		this.name = name;
 		this.language = language;
 		this.description = description;
@@ -103,6 +108,14 @@ public class UserDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getGithub() {
+		return github;
+	}
+
+	public void setGithub(String github) {
+		this.github = github;
 	}
 
 	public char getGender() {

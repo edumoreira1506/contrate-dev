@@ -4,6 +4,10 @@
 
 <t:template title="Contrate DEV">
   <jsp:body>
-  	<h1>Sou manager!</h1>
+    <div class="Welcome">
+       <div class="Welcome__title">
+         <h2>Bem vindo gerente</h2>
+       </div>
+	</div>
   </jsp:body>
 </t:template>

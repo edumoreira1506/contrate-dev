@@ -69,8 +69,9 @@ public class RegisterController extends HttpServlet {
 		String confirmPassword = request.getParameter("confirm_password");
 		String cellphone = request.getParameter("cellphone");
 		char gender = request.getParameter("gender") == "M" ? 'm' : 'f';
+		String github = request.getParameter("github");
 
-		UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, confirmPassword);
+		UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, github, confirmPassword);
 		List<ValidationError> errors = formValidation(userDTO);
 
 		boolean hasError = errors != null;
@@ -103,8 +104,10 @@ public class RegisterController extends HttpServlet {
 
 		final String hashed = Sha256Generator.generate(user.getPassword());
 		user.setPassword(hashed);
-
-		Role roleDb = new Role(userDTO.getEmail(), Constants.USER);
+		
+		Long amountUsers = userService.count();
+		String role = amountUsers == 0 ? Constants.ADMIN : Constants.USER;
+		Role roleDb = new Role(userDTO.getEmail(), role);
 		return userService.saveUserAndRole(user, roleDb);
 	}
 
@@ -120,6 +123,10 @@ public class RegisterController extends HttpServlet {
 
 		if (userDTO.getName() == null || userDTO.getName().isEmpty()) {
 			errors.add(new ValidationError("name", "O campo nome é obrigatório."));
+		}
+		
+		if (userDTO.getGithub() == null || userDTO.getGithub().isEmpty()) {
+			errors.add(new ValidationError("github", "O campo github é obrigatório."));
 		}
 
 		if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {

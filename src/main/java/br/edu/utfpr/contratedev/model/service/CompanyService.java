@@ -5,9 +5,11 @@ import java.util.List;
 
 import br.edu.utfpr.contratedev.error.ValidationError;
 import br.edu.utfpr.contratedev.model.dao.CompanyDAO;
+import br.edu.utfpr.contratedev.model.dao.JobDAO;
 import br.edu.utfpr.contratedev.model.dao.RoleDAO;
 import br.edu.utfpr.contratedev.model.dao.UserDAO;
 import br.edu.utfpr.contratedev.model.domain.Company;
+import br.edu.utfpr.contratedev.model.domain.Job;
 import br.edu.utfpr.contratedev.model.domain.Role;
 import br.edu.utfpr.contratedev.model.domain.User;
 import br.edu.utfpr.contratedev.util.JPAUtil;
@@ -20,6 +22,7 @@ public class CompanyService extends AbstractService<Long, Company> {
     public boolean deleteCompany(Long id) {
     	RoleDAO roleDAO = new RoleDAO();
     	UserDAO userDAO = new UserDAO();
+    	JobDAO jobDAO = new JobDAO();
     	
     	boolean isSuccess = true;
         try {
@@ -27,6 +30,14 @@ public class CompanyService extends AbstractService<Long, Company> {
         	User user = userDAO.getById(company.getManager().getEmail());
             Role role = roleDAO.getById(company.getManager().getEmail());
         	
+            List<Job> jobs = jobDAO.findAll();
+            
+            for(Job job : jobs) {
+            	if (job.getCompany() == company) {
+            		jobDAO.delete(job);
+            	}
+            }
+            
             JPAUtil.beginTransaction();
             userDAO.delete(user);
             roleDAO.delete(role);
@@ -36,9 +47,8 @@ public class CompanyService extends AbstractService<Long, Company> {
             e.printStackTrace();
             isSuccess = false;
             JPAUtil.rollBack();
-        } finally {
-            JPAUtil.closeEntityManager();
         }
+        
         return isSuccess;
     }
     
@@ -53,7 +63,7 @@ public class CompanyService extends AbstractService<Long, Company> {
             isSuccess = false;
             JPAUtil.rollBack();
         } finally {
-            JPAUtil.closeEntityManager();
+        	JPAUtil.closeEntityManager();
         }
         return isSuccess;
     }

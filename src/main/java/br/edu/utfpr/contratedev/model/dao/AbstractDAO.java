@@ -56,6 +56,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public T getByForeignOrObjectProperty(String propertyName, Object propertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + propertyName + " = :param";
 
 		Query query = entityManager.createQuery(queryString);
@@ -67,6 +68,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public Long count() {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT COUNT(o) FROM " + getTypeClass().getName() + " o";
 
 		Query query = entityManager.createQuery(queryString);
@@ -77,6 +79,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public Long countByProperty(String propertyName, Object propertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT COUNT(o) FROM " + getTypeClass().getName() + " o where o." + propertyName + " = :param";
 
 		Query query = entityManager.createQuery(queryString);
@@ -88,6 +91,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public Long countByTwoProperties(String firstPropertyName, Object firstPropertyValue, String secondPropertyName, Object secondPropertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT COUNT(o) FROM " + getTypeClass().getName() + " o where o." + firstPropertyName + " = :param1 AND o." + secondPropertyName + " = :param2";
 
 		Query query = entityManager.createQuery(queryString);
@@ -100,6 +104,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public T getByPropertyIgnoreCase(String propertyName, String propertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where lower(o." + propertyName + ") = lower(:param)";
 
 		Query query = entityManager.createQuery(queryString);
@@ -117,6 +122,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public T getByTwoProperties(String firstPropertyName, String firstPropertyValue, String secondPropertyName, String secondPropertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + firstPropertyName + " = :param AND o." + secondPropertyName + " = :param2";
 
 		Query query = entityManager.createQuery(queryString);
@@ -135,6 +141,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public List<T> listByProperty(String propertyName, String propertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + propertyName + " = :param";
 
 		Query query = entityManager.createQuery(queryString);
@@ -146,6 +153,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public List<T> listByTwoProperties(String firstPropertyName, String firstPropertyValue, String secondPropertyName, String secondPropertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + firstPropertyName + " = :param AND o." + secondPropertyName + " = :param2";
 
 		Query query = entityManager.createQuery(queryString);
@@ -158,6 +166,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public List<T> listByForeignOrObjectProperty(String propertyName, Object propertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + propertyName + " = :param";
 
 		Query query = entityManager.createQuery(queryString);
@@ -169,6 +178,7 @@ public class AbstractDAO<PK, T> {
 	}
 
 	public List<T> listByTwoForeignOrObjectProperty(String firstPropertyName, Object firstPropertyValue, String secondPropertyName, Object secondPropertyValue) {
+		this.entityManager = JPAUtil.getEntityManager();
 		String queryString = "SELECT o FROM " + getTypeClass().getName() + " o where o." + firstPropertyName + " = :param AND o." + secondPropertyName + " = :param2";
 
 		Query query = entityManager.createQuery(queryString);

@@ -15,17 +15,22 @@
           <td>Ações</td>
         </tr>
         <c:forEach var="u" items="${users}">
-          <tr class="Table__cell">
+          <c:if test="${not empty u.language}">
+          	<tr class="Table__cell">
             <td>${u.name}</td>
             <td>${u.language}</td>
             <td>${u.email}</td>
             <td>${u.cellphone}</td>
             <td>
 	            <a href="a/usuarios/remover?id=${u.email}" class="Table__action transition">
-	              <i class="fas fa-trash-alt"></i>
+	              <img 
+				    src="resources/icons/delete.svg" 
+					class="Icon"
+				   />
 	            </a>
             </td>
            </tr>
+          </c:if>
         </c:forEach>
       </table>
     </div>

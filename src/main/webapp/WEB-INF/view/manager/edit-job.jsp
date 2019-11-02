@@ -9,7 +9,7 @@
       <form action="g/vagas/editar" method="POST">
         <input type="text" value="${job.name}" class="Form__input" name="name" placeholder="Nome do cargo" required>
         <textarea name="description" class="Form__textarea" placeholder="Descrição da vaga" required>${job.description}</textarea>
-        <input type="number" class="Form__input" name="salary" value="${job.salary}" placeholder="Salário (em centavos)" required>
+        <input type="text" class="Form__input" name="salary" value="${job.salary}" placeholder="Salário (no formato brasileiro. Exemplo 2000,00)" required>
         <input type="hidden" name="id" value="${job.id}">
         <button class="Form__button transition" type="submit" class="transition">
           Editar

@@ -9,7 +9,8 @@
    	  <form action="a/usuarios/cadastrar" method="POST">
 				<input type="text" class="Form__input" name="name" placeholder="Nome" required>
 				<input type="text" class="Form__input" name="language" placeholder="Linguagem" required>
-				<textarea name="description" class="Form__textarea" placeholder="Descrição sobre você" required></textarea>
+				<input type="text" class="Form__input" name="github" placeholder="Github" required>
+				<textarea name="description" class="Form__textarea" placeholder="Descrição" required></textarea>
 				<input type="email" class="Form__input--half" name="email" placeholder="E-mail" required>
 				<input type="text" class="Form__input--half" name="cellphone" placeholder="Celular/Telefone" required>
 				<input type="password" class="Form__input--half" name="password" placeholder="Senha" required>

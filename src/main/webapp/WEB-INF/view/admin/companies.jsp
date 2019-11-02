@@ -18,7 +18,10 @@
             <td>${c.manager.name}</td>
             <td>
 	            <a href="a/empresas/remover?id=${c.id}" class="Table__action transition">
-	              <i class="fas fa-trash-alt"></i>
+				  <img 
+				    src="resources/icons/delete.svg" 
+					class="Icon"
+				  />
 	            </a>
             </td>
            </tr>

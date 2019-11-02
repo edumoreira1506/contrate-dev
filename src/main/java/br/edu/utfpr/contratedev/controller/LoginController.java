@@ -1,13 +1,20 @@
 package br.edu.utfpr.contratedev.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.edu.utfpr.contratedev.model.domain.User;
+import br.edu.utfpr.contratedev.model.service.UserService;
 import br.edu.utfpr.contratedev.util.Constants;
 
 /**
@@ -16,7 +23,7 @@ import br.edu.utfpr.contratedev.util.Constants;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    UserService userService = new UserService();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,7 +59,8 @@ public class LoginController extends HttpServlet {
 			request.login(email, password);
 
 			HttpSession session = request.getSession();
-			session.setAttribute("username", request.getUserPrincipal().getName());
+			String username = request.getUserPrincipal().getName();
+			session.setAttribute("username", username);
 			
 			String address = request.getContextPath();
 			if(request.isUserInRole(Constants.ADMIN)) {
@@ -66,6 +74,15 @@ public class LoginController extends HttpServlet {
 				address += "/u";
 			}
 			
+			DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+			Cookie c = new Cookie("lastLogin", dateFormat.toString());
+			c.setMaxAge(60 * 60 * 24 * 10);
+			
+			User user = userService.getById(username);
+			Cookie nome = new Cookie("name", user.getName());
+			
+			response.addCookie(nome);
+			response.addCookie(c);
 			response.sendRedirect(address);
 		}
 		catch (Exception e) {

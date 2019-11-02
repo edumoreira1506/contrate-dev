@@ -25,7 +25,7 @@ import br.edu.utfpr.contratedev.util.Routes;
 /**
  * Servlet implementation class JobServlet
  */
-@WebServlet("/u/vagas/editar")
+@WebServlet({"/u/vagas/editar", "/u/vagas/listar"})
 public class JobController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,40 +44,47 @@ public class JobController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Long id = Long.parseLong(request.getParameter("id"));
-		Job job = jobService.getById(id);
-		
-		String email = (String) request.getSession().getAttribute("username");
-        User user = userService.getById(email);
-        
-        List<ValidationError> errors = validationDuplication(request, response, job, user);
-        
-        boolean hasError = errors != null;
+		if(request.getServletPath().contains(Routes.READ)) {
+			List<Job> jobs = jobService.findAll();
+	        List<JobDTO> jobsDTO = new ArrayList<>();
 
-        if(hasError){
-            sendError(request, response, errors);
-            return;
-        }
-        
-        if(request.getServletPath().contains(Routes.UPDATE)){
-        	Set<User> candidates = job.getCandidates();
-        	candidates.add(user);
-        	job.setCandidates(candidates);
-        	
+	        for(Job j : jobs){
+	            jobsDTO.add(JobMapper.toDTO(j));
+	        }
+
+	        request.setAttribute("jobs", jobsDTO);
+	        
+	        String address = "/WEB-INF/view/user/jobs.jsp";
+			request.getRequestDispatcher(address).forward(request, response);
+		} else if(request.getServletPath().contains(Routes.UPDATE)){
+			Long id = Long.parseLong(request.getParameter("id"));
+			Job job = jobService.getById(id);
+			
+			String email = (String) request.getSession().getAttribute("username");
+	        User user = userService.getById(email);
+	        
+	        List<ValidationError> errors = validationDuplication(request, response, job, user);
+	        
+	        boolean hasError = errors != null;
+
+	        if(hasError){
+	            sendError(request, response, errors);
+	            return;
+	        }
+	        
+	        job.addCandidate(user);
             boolean isSuccess = persistEdit(request, response, job);
 
             if(!isSuccess){
-                String address = "/WEB-INF/view/user/jobs.jsp";
-
                 errors = new ArrayList<>();
                 errors.add(new ValidationError("", "Erro ao persistir os dados."));
 
+                String address = "/WEB-INF/view/user/jobs.jsp";
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher(address).forward(request, response);
                 return;
             }
 
-            request.setAttribute("success", "Você se candidatou a vaga!");
             String route = request.getContextPath() + "/u";
             response.sendRedirect(route);
         } 
@@ -110,9 +117,9 @@ public class JobController extends HttpServlet {
 	}
 	
 	private void sendError(HttpServletRequest request, HttpServletResponse response, List<ValidationError> errors) throws ServletException, IOException {
-        String address = "/WEB-INF/view/user/jobs.jsp";
-        request.setAttribute("errors", errors);
-        request.getRequestDispatcher(address).forward(request, response);
+		String address = "/WEB-INF/view/user/jobs.jsp";
+		request.setAttribute("errors", errors);
+		request.getRequestDispatcher(address).forward(request, response);
     }
 	
 	private boolean persistEdit(HttpServletRequest request, HttpServletResponse response, Job job) throws IOException, ServletException {

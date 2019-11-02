@@ -28,6 +28,9 @@ public class User {
     @Column(name = "gender")
 	private char gender;
     
+    @Column(name = "github")
+    private  String github;
+    
     public User() {
     }
 
@@ -38,7 +41,8 @@ public class User {
     	String email,
     	String cellphone,
     	String password,    	
-    	char gender
+    	char gender,
+    	String github
     ) {
     	super();
     	this.name = name;
@@ -48,6 +52,7 @@ public class User {
     	this.cellphone = cellphone;
    		this.password = password;
     	this.gender = gender;
+    	this.github = github;
     }
     
     public String getName() {
@@ -88,6 +93,14 @@ public class User {
 
 	public void setCellphone(String cellphone) {
 		this.cellphone = cellphone;
+	}
+	
+	public String getGithub() {
+		return github;
+	}
+
+	public void setGithub(String github) {
+		this.github = github;
 	}
 
 	public String getPassword() {

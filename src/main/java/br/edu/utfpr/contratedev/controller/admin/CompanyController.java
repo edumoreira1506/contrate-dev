@@ -16,9 +16,7 @@ import br.edu.utfpr.contratedev.error.ParamException;
 import br.edu.utfpr.contratedev.error.ValidationError;
 import br.edu.utfpr.contratedev.model.domain.Company;
 import br.edu.utfpr.contratedev.model.domain.Role;
-import br.edu.utfpr.contratedev.model.domain.User;
 import br.edu.utfpr.contratedev.model.mapper.CompanyMapper;
-import br.edu.utfpr.contratedev.model.mapper.UserMapper;
 import br.edu.utfpr.contratedev.model.service.CompanyService;
 import br.edu.utfpr.contratedev.model.service.RoleService;
 import br.edu.utfpr.contratedev.model.service.UserService;
@@ -74,15 +72,8 @@ public class CompanyController extends HttpServlet {
 	            throw new ParamException("Parâmetros incorretos!");
 	        }
 
-	        boolean isSuccess = companyService.deleteCompany(id);
-	        String message = null;
-	        if(isSuccess) {
-	        	message = "Empresa removida com sucesso!";
-	        } else {
-	            message = "A empresa não pôde ser removido.";
-	        }
+	        companyService.deleteCompany(id);
 	        String address = request.getContextPath() + "/a/empresas/listar";
-	        request.setAttribute("flash.message", message);
 	        response.sendRedirect(address);	
 		}
 	}
@@ -99,7 +90,7 @@ public class CompanyController extends HttpServlet {
         String name = request.getParameter("name");
         char gender = request.getParameter("gender") == "M" ? 'm' : 'f';
         
-        UserDTO userDTO = new UserDTO(name, "", "", email, "", password, gender, confirmPassword);
+        UserDTO userDTO = new UserDTO(name, "", "", email, "", password, gender, null, confirmPassword);
         CompanyDTO companyDTO = new CompanyDTO(userDTO, companyName, description); 
         List<ValidationError> errors = formValidation(companyDTO);
 
@@ -124,7 +115,7 @@ public class CompanyController extends HttpServlet {
                 return;
             }
 
-            String route = request.getContextPath() + "/a/usuarios/listar";
+            String route = request.getContextPath() + "/a/empresas/listar";
             response.sendRedirect(route);
         }
 	}
@@ -140,7 +131,7 @@ public class CompanyController extends HttpServlet {
     }
 	
 	private void sendError(HttpServletRequest request, HttpServletResponse response, List<ValidationError> errors) throws ServletException, IOException {
-        String address = "/WEB-INF/view/admin/register-company-form.jsp";
+		String address = "/WEB-INF/view/admin/register-company-form.jsp";
         request.setAttribute("errors", errors);
         request.getRequestDispatcher(address).forward(request, response);
     }

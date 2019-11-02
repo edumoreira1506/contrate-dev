@@ -61,6 +61,7 @@ public class EditController extends HttpServlet {
 		String description = request.getParameter("description");
 		String cellphone = request.getParameter("cellphone");
 		String id = request.getParameter("id");
+		String github = request.getParameter("github");
 		
 		User user = userService.getById(id);
 		
@@ -69,6 +70,7 @@ public class EditController extends HttpServlet {
 		user.setDescription(description);
 		user.setName(name);
 		user.setLanguage(language);
+		user.setGithub(github);
 		
 		List<ValidationError> errors = formValidation(user);
 
@@ -110,6 +112,10 @@ public class EditController extends HttpServlet {
 
 	private List<ValidationError> formValidation(User user) {
 		List<ValidationError> errors = new ArrayList<>();
+		
+		if (user.getGithub() == null || user.getGithub().isEmpty()) {
+			errors.add(new ValidationError("github", "O campo github é obrigatório"));
+		}
 
 		if (user.getName() == null || user.getName().isEmpty()) {
 			errors.add(new ValidationError("name", "O campo nome é obrigatório."));

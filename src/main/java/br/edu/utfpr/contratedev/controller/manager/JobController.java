@@ -95,7 +95,7 @@ public class JobController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		String description = request.getParameter("description");
-        Long salary = Long.parseLong(request.getParameter("salary"));
+        String salary = request.getParameter("salary");
         
         String email = (String) request.getSession().getAttribute("username");
         User admin = userService.getById(email);
@@ -135,7 +135,7 @@ public class JobController extends HttpServlet {
         	boolean isSuccess = persistEdit(request, response, jobDTO);
         	
         	if(!isSuccess){
-                String address = "/WEB-INF/view/manager/edit-job.jsp";
+                String address = "/WEB-INF/view/user/jobs.jsp";
 
                 errors = new ArrayList<>();
                 errors.add(new ValidationError("", "Erro ao persistir os dados."));
@@ -161,7 +161,7 @@ public class JobController extends HttpServlet {
     }
 	
 	private void sendError(HttpServletRequest request, HttpServletResponse response, List<ValidationError> errors) throws ServletException, IOException {
-        String address = "/WEB-INF/view/manager/register-job.jsp";
+		String address = "/WEB-INF/view/user/jobs.jsp";
         request.setAttribute("errors", errors);
         request.getRequestDispatcher(address).forward(request, response);
     }
@@ -169,7 +169,7 @@ public class JobController extends HttpServlet {
 	private List<ValidationError> formValidation(JobDTO jobDTO) {
         List<ValidationError> errors = new ArrayList<>();
 
-        if (jobDTO.getSalary() == null || jobDTO.getSalary() <= 0) {
+        if (jobDTO.getSalary() == null) {
         	errors.add(new ValidationError("salary", "Salário não pode ser negativo"));
         }
         

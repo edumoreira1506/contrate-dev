@@ -55,4 +55,15 @@
       <form-error-page>/WEB-INF/view/login.jsp</form-error-page>
     </form-login-config>
   </login-config>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/view/404.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/WEB-INF/view/null.jsp</location>
+  </error-page>
+  <error-page>
+    <location>/erro</location>
+  </error-page>
 </web-app>

@@ -4,19 +4,15 @@ Esse é o projeto Contrate Dev. Um sistema que tem o intuito de divulgar vagas d
 
 # Pré requisitos do projeto:
 
-- [x] Encaminhamento e redirecionamento
 - [x] Usar encaminhamento fora do modelo MVC (i.e. um servlet encaminhando a requisição para outro servlet)
-- [ ] Usar redirecionamento depois de requisições POST de um formulário para evitar o reenvio destes dados ao atualizar a página com F5.
-- [ ] Escopo de requisição, sessão e aplicação
-- [ ] Cookies
+- [x] Usar redirecionamento depois de requisições POST de um formulário para evitar o reenvio destes dados ao atualizar a página com F5.
+- [x] Escopo de requisição, sessão e aplicação
 - [ ] Cookie que dura apenas uma sessão do navegador
 - [ ] Cookie com tempo de vida customizado além de uma sessão do navegador
-- [x] Filtros
-- [ ] Filtro normal de intercepção de requisição ou resposta
-- [ ] Filtro com modificação da parâmetros via Wrapper
-- [ ] Filtro para tratamento de ataques XSS
-- [ ] Controle de erros e exceção via web.xml
-- [ ] Tratamento por código de status ou exceção específica
+- [x] Filtro normal de intercepção de requisição ou resposta
+- [x] Filtro com modificação da parâmetros via Wrapper
+- [x] Filtro para tratamento de ataques XSS
+- [x] Tratamento por código de status ou exceção específica
 - [x] Tratamento de erros genérico
 - [x] Autenticação e autorização com JAAS
 - [x] Usar JDBC Realm com formulário e senha com hash SHA-256

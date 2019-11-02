@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import br.edu.utfpr.contratedev.dto.UserDTO;
 import br.edu.utfpr.contratedev.error.ParamException;
 import br.edu.utfpr.contratedev.error.ValidationError;
+import br.edu.utfpr.contratedev.model.domain.Company;
 import br.edu.utfpr.contratedev.model.domain.Role;
 import br.edu.utfpr.contratedev.model.domain.User;
 import br.edu.utfpr.contratedev.model.mapper.UserMapper;
+import br.edu.utfpr.contratedev.model.service.CompanyService;
 import br.edu.utfpr.contratedev.model.service.RoleService;
 import br.edu.utfpr.contratedev.model.service.UserService;
 import br.edu.utfpr.contratedev.util.Constants;
@@ -29,6 +31,7 @@ import br.edu.utfpr.contratedev.util.Sha256Generator;
 public class UsersController extends HttpServlet {
 	UserService userService = new UserService();
 	RoleService roleService = new RoleService();
+	CompanyService companyService = new CompanyService();
 	
 	private static final long serialVersionUID = 1L;
        
@@ -63,15 +66,17 @@ public class UsersController extends HttpServlet {
 	            throw new ParamException("Parâmetros incorretos!");
 	        }
 
-	        boolean isSuccess = userService.deleteUserAndRole(id);
-	        String message = null;
-	        if(isSuccess) {
-	        	message = "Usuário removido com sucesso!";
+	        Role role = roleService.getById(id);
+	        
+	        if (role.getRole() == Constants.MANAGER) {
+	        	User user = userService.getById(id);
+	        	Company company = companyService.getByForeignOrObjectProperty("manager", user);
+	        	companyService.delete(company);
 	        } else {
-	            message = "Oppss! O usuário não pôde ser removido.";
+	        	userService.deleteUserAndRole(id);	
 	        }
+	        
 	        String address = request.getContextPath() + "/a/usuarios/listar";
-	        request.setAttribute("flash.message", message);
 	        response.sendRedirect(address);	
 		}
 	}
@@ -87,10 +92,11 @@ public class UsersController extends HttpServlet {
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
         String cellphone = request.getParameter("cellphone");
+        String github = request.getParameter("github");
         char gender = request.getParameter("gender") == "M" ? 'm' : 'f';
         String role = request.getParameter("role");
         
-        UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, confirmPassword);
+        UserDTO userDTO = new UserDTO(name, language, description, email, cellphone, password, gender, github, confirmPassword);
         List<ValidationError> errors = formValidation(userDTO, role);
 
         boolean hasError = errors != null;
@@ -104,9 +110,9 @@ public class UsersController extends HttpServlet {
             boolean isSuccess = persist(request, response, userDTO, role);
 
             if(!isSuccess){
-                String address = "/WEB-INF/view/admin/register-user-form.jsp";
+            	String address = "/WEB-INF/view/admin/register-user-form.jsp";
 
-                errors = new ArrayList<>();
+            	errors = new ArrayList<>();
                 errors.add(new ValidationError("", "Erro ao persistir os dados."));
 
                 request.setAttribute("errors", errors);
@@ -130,7 +136,7 @@ public class UsersController extends HttpServlet {
     }
 	
 	private void sendError(HttpServletRequest request, HttpServletResponse response, List<ValidationError> errors) throws ServletException, IOException {
-        String address = "/WEB-INF/view/admin/register-user-form.jsp";
+		String address = "/WEB-INF/view/admin/register-user-form.jsp";
         request.setAttribute("errors", errors);
         request.getRequestDispatcher(address).forward(request, response);
     }
@@ -140,6 +146,10 @@ public class UsersController extends HttpServlet {
 
         if (role.isEmpty()) {
              errors.add(new ValidationError("role", "Tipo deve ser admin ou comum."));
+        }
+       
+        if (userDTO.getGithub() == null || userDTO.getGithub().isEmpty()) {
+            errors.add(new ValidationError("github", "O campo github é obrigatório."));
         }
         
         if (userDTO.getName() == null || userDTO.getName().isEmpty()) {
