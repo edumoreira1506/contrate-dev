@@ -247,7 +247,8 @@ table::-webkit-resizer{}
   background: #fff;
   border: transparent;
   border-radius: 6px;
-  padding-top: 4px;
+  padding: 3px 0 1px 0;
+  vertical-align: top;
 }
 .User {
   background: #cfcfcf;
@@ -330,4 +331,45 @@ table::-webkit-resizer{}
   font-size: 55px;
   font-weight: 100;
   letter-spacing: 15px;	
+}
+.hidden {
+  display: none;
+}
+.Modal__background {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: #000000eb;
+  top: 0;
+}
+.MyModal {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 80%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 7px;
+}
+.Modal__header {
+  position: relative;
+}
+.Modal__image {
+  border-radius: 100%;
+  margin: 0;
+  padding: 0;
+}
+.Modal__list {
+  margin: 40px 0 0 50px;
+  font-size: 20px;
+}
+.Modal__list li {
+  margin: 5px 0 5px 0;
+}
+#close-modal {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  font-size: 30px;
 }

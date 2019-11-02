@@ -4,6 +4,23 @@
 
 <t:template title="Contrate DEV - Vaga">
   <jsp:body>
+    <div class="Modal__background hidden" id="modal-github">
+      <div class="MyModal">        
+        <div class="Modal__header">
+          <span id="close-modal">
+            X
+          </span>
+          <div class="row">
+            <div class="col-md-4">
+              <img id="user-image" id="modal-image" class="Modal__image">
+            </div>
+            <div class="col-md-8">
+              <ul class="Modal__list" id="modal-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="Table">
       <h2 class="Table__title">CANDIDATOS</h2>
       <table>
@@ -22,11 +39,17 @@
             <td>${c.cellphone}</td>
             <td>
 	            <a href="g/usuarios/visualizar?id=${c.email}" class="Table__action transition">
-				  <img 
-				    src="resources/icons/user.svg" 
-					class="Icon"
-				  />
-	            </a>
+                <img 
+                  src="resources/icons/user.svg" 
+                  class="Icon"
+                />
+              </a>
+              <button href="#" onclick="consultGithub('${c.github}')" class="Table__action transition">
+                <img 
+                  src="resources/icons/github.svg" 
+                  class="Icon"
+                />
+	            </button>
             </td>
            </tr>
         </c:forEach>
