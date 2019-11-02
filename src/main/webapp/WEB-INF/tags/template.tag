@@ -79,8 +79,14 @@
     </div>
     <jsp:doBody />
   </div>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <script src="https://kit.fontawesome.com/a294e857dc.js" crossorigin="anonymous"></script>
+  <script src="resources/js/main.js"></script>
   <c:if test="${not empty errors}">
     <c:forEach var="error" items="${errors}">
 	  <script>
