@@ -373,3 +373,47 @@ table::-webkit-resizer{}
   cursor: pointer;
   font-size: 30px;
 }
+
+@media screen and (max-width: 1000px) {
+  .Template__menu__links li {
+    padding-top: 17px;
+  }
+
+  .Template__menu__links {
+    display: block;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+  }
+
+  .Template__menu__links_link a {
+    color: #000;
+  }
+
+  .Login__area__header__title {
+    font-size:  30px;
+  }
+
+  .Login__area__header__description {
+    padding: 8px 0 8px 0;
+    width: 85%;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Login__area {
+    width: 65%;
+    top: 57%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .Login__area {
+    width: 90%;
+  }
+  
+  .Login__area__header__title{
+    padding: 10px 0 7px 0;
+  }
+}
