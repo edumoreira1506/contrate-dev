@@ -25,6 +25,6 @@ Esse é o projeto Contrate Dev. Um sistema que tem o intuito de divulgar vagas d
 - [x] JPA
 - [x] No mínimo 4 Entidades, contabilizando a Entidade User e Role.
 - [x] CRUD do Usuário
-- [ ] Requisição AJAX
-- [ ] Armazenamento no LocalStorage
-- [ ] Uso de plugin JQuery
+- [x] Requisição AJAX
+- [x] Armazenamento no LocalStorage
+- [x] Uso de plugin JQuery
