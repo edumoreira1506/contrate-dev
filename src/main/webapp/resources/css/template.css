@@ -247,7 +247,8 @@ table::-webkit-resizer{}
   background: #fff;
   border: transparent;
   border-radius: 6px;
-  padding-top: 4px;
+  padding: 3px 0 1px 0;
+  vertical-align: top;
 }
 .User {
   background: #cfcfcf;

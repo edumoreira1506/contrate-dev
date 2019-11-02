@@ -22,11 +22,17 @@
             <td>${c.cellphone}</td>
             <td>
 	            <a href="g/usuarios/visualizar?id=${c.email}" class="Table__action transition">
-				  <img 
-				    src="resources/icons/user.svg" 
-					class="Icon"
-				  />
-	            </a>
+                <img 
+                  src="resources/icons/user.svg" 
+                  class="Icon"
+                />
+              </a>
+              <button href="#" onclick="consultGithub('${c.github}')" class="Table__action transition">
+                <img 
+                  src="resources/icons/github.svg" 
+                  class="Icon"
+                />
+	            </button>
             </td>
            </tr>
         </c:forEach>
